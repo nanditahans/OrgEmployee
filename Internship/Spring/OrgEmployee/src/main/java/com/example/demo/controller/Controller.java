@@ -1,9 +1,8 @@
 package com.example.demo.controller;
-import com.example.demo.common.EmployeeCurrentStatus;
+
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.dto.OrgDTO;
 import com.example.demo.dto.ResponseDTO;
-import com.example.demo.entity.Org;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.OrgService;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
@@ -30,7 +29,7 @@ public class Controller {
 	private final OrgService orgService;
 
 
-	public Controller(EmployeeRepository employeeRepoistory, EmployeeService empService, OrgService orgService, OrgRepository orgRepoistory) {
+	public Controller(EmployeeService empService, OrgService orgService) {
 		this.empService = empService;
 		this.orgService = orgService;
 	}
@@ -44,10 +43,9 @@ public class Controller {
 		return ResponseEntity.ok(new ResponseDTO(true,orgService.getAllOrg()));
 	}
 	@GetMapping("/org/{orgId}")
-	public ResponseEntity<ResponseDTO> getOrgById(@PathVariable(value = "orgId") UUID orgId)
-			throws ResourceNotFoundException {
-		return ResponseEntity.ok(new ResponseDTO(true,orgService.getOrgById(orgId)));
-	}
+	public ResponseEntity<ResponseDTO> getOrgById(@PathVariable(value = "orgId") UUID orgId) throws ResourceNotFoundException {
+		return ResponseEntity.ok(new ResponseDTO(true,orgService.getOrgById(orgId)));}
+
 	@PutMapping("/org/{orgId}")
 	public ResponseEntity<ResponseDTO> updateOrg(@PathVariable(value = "orgId") UUID orgId, @RequestBody OrgDTO orgDTO) throws ResourceNotFoundException {
 		return ResponseEntity.ok(new ResponseDTO(true,orgService.updateOrg(orgId,orgDTO)));
@@ -63,13 +61,13 @@ public class Controller {
 	}
 	
 	@PostMapping(value = "/emp")
-	public ResponseEntity<ResponseDTO> saveEmployee( @RequestBody @Valid  EmployeeDTO createEmployeeDTO) {
+	public ResponseEntity<ResponseDTO> saveEmployee( @RequestBody @Valid EmployeeDTO createEmployeeDTO)  {
 		return ResponseEntity.ok(new ResponseDTO(true,empService.saveEmployee(createEmployeeDTO)));
 	}
 
 	@GetMapping(value="/emp/{empId}")
 	public ResponseEntity<ResponseDTO> getEmpById(@PathVariable(value = "empId") UUID empId)
-			throws ResourceNotFoundException {
+			throws ResourceNotFoundException{
 		return ResponseEntity.ok(new ResponseDTO(true,empService.getEmployeeById(empId)));
 	}
 	@PutMapping("/emp/{empId}")

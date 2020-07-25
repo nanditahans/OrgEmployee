@@ -33,7 +33,11 @@ public class PartialUpdateMapper {
             employee.setCurrentStatus(employeeDto.getCurrentStatus().toString());
 
         }
+        if(employeeDto.getOrgId()==null)
             employeeDto.setOrgId(employee.getOrg().getOrgId());
+        else
+            employee.setOrg(orgService.getOrgById(employeeDto.getOrgId()));
+
         return employee;
     }
 }

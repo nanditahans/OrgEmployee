@@ -14,6 +14,14 @@ public class OrgDTO  {
     @NotNull
     private String orgName;
 
+    public OrgDTO(UUID orgId, String orgName) {
+        this.orgId = orgId;
+        this.orgName = orgName;
+    }
+
+    public OrgDTO() {
+    }
+
     public String getOrgName() {
         return orgName;
     }

@@ -37,22 +37,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.getAllEmployeeMapper = getAllEmployeeMapper;
 	}
 
-	/*@Override
-	public Employee saveEmployee(EmployeeDTO employeeDTO) {
-		Employee employee =employeeMapper.EmployeeDtoToEmployee(employeeDTO);
-		return empRepo.save(employee);
-	}*/
-
-	public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
-		Employee employee = null;
+	public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO)  {
+		Employee employee=null;
 		try {
-			employee = employeeMapper.EmployeeDtoToEmployee(employeeDTO);
+			employee=employeeMapper.EmployeeDtoToEmployee(employeeDTO);
+			empRepo.save(employee);
 		} catch (ResourceNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println(employee.getEmpId().toString().getBytes().length);
-		System.out.println(employee.getEmpName().getBytes().length);
-		empRepo.save(employee);
+		/*empRepo.save(employee);*/
 		return employeeDTO;
 	}
 
@@ -60,8 +53,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeDTO> getAllEmployee() {
 
 		List<Employee> employeesList = (List<Employee>) empRepo.findAll();
-		List<EmployeeDTO> employees=employeesList.stream().map(employee ->getAllEmployeeMapper.getAllEmployees(employee)).collect(Collectors.toList());
-		return employees;
+		//List<EmployeeDTO> employees=employeesList.stream().map(employee ->getAllEmployeeMapper.getAllEmployees(employee)).collect(Collectors.toList());
+		return employeesList.stream().map(employee ->getAllEmployeeMapper.getAllEmployees(employee)).collect(Collectors.toList());
 
 
 	}
@@ -76,6 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}else{
 			throw new ResourceNotFoundException("Enter Valid EmployeeId");
 		}
+
 	}
 
 	@Override
@@ -93,14 +87,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public EmployeeDTO getEmployeeById(UUID empId) throws ResourceNotFoundException {
-		if(empId!=null){
-			EmployeeDTO employeeDTO=new EmployeeDTO();
-			getEmployeeMapper.GetEmployeeMapper(empId,employeeDTO);
-			return employeeDTO;
+		Optional<Employee> employeeOptional=empRepo.findById(empId);
+		EmployeeDTO employeeDTO=new EmployeeDTO();
+		if(employeeOptional.isPresent()){
+			employeeDTO=getEmployeeMapper.GetEmployeeMapper(employeeOptional.get(),employeeDTO);
 		}else{
 			throw new ResourceNotFoundException("Enter Valid EmployeeId");
 		}
+		return employeeDTO;
+		/*EmployeeDTO employeeDTO = new EmployeeDTO();
+		try {
+			getEmployeeMapper.GetEmployeeMapper(empId, employeeDTO);
+		} catch (ResourceNotFoundException e) {
 
+		}
+		return employeeDTO;*/
 	}
 
 	@Override

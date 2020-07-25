@@ -19,11 +19,12 @@ public class CreateEmployeeMapper {
 
     public Employee EmployeeDtoToEmployee(EmployeeDTO employeeDto) throws ResourceNotFoundException {
             Employee employee=new Employee();
+            String status=employeeDto.getCurrentStatus().toString();
             employeeDto.setEmpId(employee.getEmpId());
             employee.setEmpName(employeeDto.getEmpName());
             employee.setEmailId(employeeDto.getEmailId());
             employee.setActive(employeeDto.isActive());
-            employee.setCurrentStatus(employeeDto.getCurrentStatus().toString());
+            employee.setCurrentStatus(status);
             employee.setOrg(orgService.getOrgById(employeeDto.getOrgId()));
             return employee;
 

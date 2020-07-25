@@ -79,9 +79,8 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(UUID empId, String empName, String emailId, boolean active, EmployeeCurrentStatus currentStatus, UUID orgId) {
+    public EmployeeDTO(UUID empId, String empName, String emailId, boolean active, EmployeeCurrentStatus currentStatus, UUID orgId){
         this.empId = empId;
-
         this.empName = empName;
         this.emailId = emailId;
         this.active = active;
@@ -89,14 +88,16 @@ public class EmployeeDTO {
         this.orgId = orgId;
     }
 
+
     @Override
     public String toString() {
-        return "EmployeeDetailsDTO{" +
+        return "EmployeeDTO{" +
+                "empId=" + empId +
                 ", empName='" + empName + '\'' +
                 ", emailId='" + emailId + '\'' +
                 ", active=" + active +
-                ", currentStatus='" + currentStatus + '\'' +
+                ", currentStatus=" + currentStatus +
+                ", orgId=" + orgId +
                 '}';
     }
-
 }

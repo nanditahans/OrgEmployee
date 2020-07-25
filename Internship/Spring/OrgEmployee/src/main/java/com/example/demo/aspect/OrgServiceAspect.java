@@ -14,15 +14,16 @@ import java.util.UUID;
 @Component
 public class OrgServiceAspect {
 
-    @AfterThrowing (pointcut = "execution(* com.example.demo.service.OrgService.*(..))", throwing = "ex")
-    public void logAfterThrowingAllMethods(Exception ex) throws Throwable
-    {
-        System.out.println("AfterThrowingAllMethods() " + ex);
-    }
+
+//    @AfterThrowing (pointcut = "execution(* com.example.demo.service.OrgService.*(..))", throwing = "ex")
+//    public void logAfterThrowingAllMethods(Exception ex)
+//    {
+//        System.out.println("AfterThrowingAllMethods() " + ex);
+//    }
 
     @Before("execution(* com.example.demo.service.OrgService.saveOrg(..))")
-    public void SaveOrgBefore(JoinPoint joinPoint) {
-        System.out.println("Org.SaveOrgbeforeAdvice() : " + joinPoint.getSignature().getName());
+    public void SaveOrgBefore() {
+        System.out.println("Org.SaveOrgbeforeAdvice() :");
     }
 
     @Around("execution(* com.example.demo.service.OrgService.getOrgById(..))")
@@ -37,48 +38,48 @@ public class OrgServiceAspect {
     }
 
     @AfterReturning(pointcut="execution(* com.example.demo.service.OrgService.getOrgById(..))", returning="retVal")
-    public void logAfterReturningGetEmployee(Object retVal) throws Throwable
+    public void logAfterReturningGetEmployee(Object retVal)
     {
         System.out.println("Org.getOrgByIdAfterReturning");
         System.out.println("OrgName :  "+((Org)retVal).getOrgName());
     }
-    @Before("execution(* com.example.demo.service.OrgService.getOrgById(..))")
-    public void getOrgByIdBefore(JoinPoint joinPoint){
-        System.out.println("Org.getOrgByIdBefore: " + joinPoint.getSignature().getName());
-
-    }
+//    @Before("execution(* com.example.demo.service.OrgService.getOrgById(..))")
+//    public void getOrgByIdBefore(JoinPoint joinPoint){
+//        System.out.println("Org.getOrgByIdBefore: " + joinPoint.getSignature().getName());
+//
+//    }
     @Before("execution(* com.example.demo.service.OrgService.getAllOrg(..))")
-    public void getAllOrgBefore(JoinPoint joinPoint){
-        System.out.println("Org.getAllOrgBefore: " + joinPoint.getSignature().getName());
+    public void getAllOrgBefore(){
+        System.out.println("Org.getAllOrgBefore: " );
     }
     @Before("execution(* com.example.demo.service.OrgService.updateOrg(..))")
-    public void updateOrgBefore(JoinPoint joinPoint){
-        System.out.println("Org.updateOrgBefore: " + joinPoint.getSignature().getName());
+    public void updateOrgBefore(){
+        System.out.println("Org.updateOrgBefore: " );
     }
     @Before("execution(* com.example.demo.service.OrgService.deleteOrg(..))")
-    public void deleteOrgBefore(JoinPoint joinPoint){
-        System.out.println("Org.deleteOrgBefore: " + joinPoint.getSignature().getName());
+    public void deleteOrgBefore(){
+        System.out.println("Org.deleteOrgBefore: " );
     }
     @After("execution(* com.example.demo.service.OrgService.saveOrg(..))")
-    public void SaveOrgAfter(JoinPoint joinPoint) {
-        System.out.println("Org.SaveOrgAfter : " + joinPoint.getSignature().getName());
+    public void SaveOrgAfter() {
+        System.out.println("Org.SaveOrgAfter : " );
     }
 
     @After("execution(* com.example.demo.service.OrgService.getOrgById(..))")
-    public void getOrgByIdAfter(JoinPoint joinPoint){
-        System.out.println("Org.getOrgByIdAfter: " + joinPoint.getSignature().getName());
+    public void getOrgByIdAfter(){
+        System.out.println("Org.getOrgByIdAfter: " );
 
     }
     @After("execution(* com.example.demo.service.OrgService.getAllOrg(..))")
-    public void getAllOrgAfter(JoinPoint joinPoint){
-        System.out.println("Org.getAllOrgAfter: " + joinPoint.getSignature().getName());
+    public void getAllOrgAfter(){
+        System.out.println("Org.getAllOrgAfter: ");
     }
     @After("execution(* com.example.demo.service.OrgService.updateOrg(..))")
-    public void updateOrgAfter(JoinPoint joinPoint){
-        System.out.println("Org.updateOrgAfter: " + joinPoint.getSignature().getName());
+    public void updateOrgAfter(){
+        System.out.println("Org.updateOrgAfter: " );
     }
     @After("execution(* com.example.demo.service.OrgService.deleteOrg(..))")
-    public void deleteOrgAfter(JoinPoint joinPoint){
-        System.out.println("Org.deleteOrgAfter: " + joinPoint.getSignature().getName());
+    public void deleteOrgAfter(){
+        System.out.println("Org.deleteOrgAfter: " );
     }
 }

@@ -15,23 +15,19 @@ import java.util.UUID;
 @Component
 public class GetEmployeeMapper {
 
-    private final OrgService orgService;
     private final EmployeeRepository employeeRepository;
 
-    public GetEmployeeMapper(OrgService orgService, EmployeeRepository employeeRepository) {
-        this.orgService = orgService;
+    public GetEmployeeMapper(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public EmployeeDTO GetEmployeeMapper(UUID empId, EmployeeDTO employeeDTO) throws ResourceNotFoundException {
-        Optional<Employee> employee = employeeRepository.findById(empId);
-        EmployeeCurrentStatus employeeCurrentStatus = null;
-        employeeDTO.setEmpId(employee.get().getEmpId());
-        employeeDTO.setEmpName(employee.get().getEmpName());
-        employeeDTO.setEmailId(employee.get().getEmailId());
-        employeeDTO.setCurrentStatus(employeeCurrentStatus.valueOf(employee.get().getCurrentStatus()));
-        employeeDTO.setActive(employee.get().isActive());
-        employeeDTO.setOrgId(employee.get().getOrg().getOrgId());
+    public EmployeeDTO GetEmployeeMapper(Employee employee, EmployeeDTO employeeDTO){
+        employeeDTO.setEmpId(employee.getEmpId());
+        employeeDTO.setEmpName(employee.getEmpName());
+        employeeDTO.setEmailId(employee.getEmailId());
+        employeeDTO.setCurrentStatus(EmployeeCurrentStatus.valueOf(employee.getCurrentStatus()));
+        employeeDTO.setActive(employee.isActive());
+        employeeDTO.setOrgId(employee.getOrg().getOrgId());
         return employeeDTO;
     }
 

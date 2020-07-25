@@ -10,11 +10,12 @@ public class GetAllEmployeeMapper {
 
     public EmployeeDTO getAllEmployees(Employee employee) {
         EmployeeDTO employeeDTO=new EmployeeDTO();
-        EmployeeCurrentStatus employeeCurrentStatus = null;
+        String status= employee.getCurrentStatus();
+        EmployeeCurrentStatus employeeCurrentStatus = EmployeeCurrentStatus.valueOf(status);
         employeeDTO.setEmpId(employee.getEmpId());
         employeeDTO.setEmpName(employee.getEmpName());
         employeeDTO.setEmailId(employee.getEmailId());
-        employeeDTO.setCurrentStatus(employeeCurrentStatus.valueOf(employee.getCurrentStatus()));
+        employeeDTO.setCurrentStatus(employeeCurrentStatus);
         employeeDTO.setActive(employee.isActive());
         employeeDTO.setOrgId(employee.getOrg().getOrgId());
         return employeeDTO;
